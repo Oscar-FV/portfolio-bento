@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="index.css">
+    <title>Bento Animation</title>
+</head>
+
+<body class="h-[100svh] p-10 bg-[#222725ff] flex flex-col gap-3">
+    <nav class="flex justify-around h-20 bg-[#A89A91ff] shadow-sm rounded-lg" id="top-element">
+    </nav>
+    <div class="flex-grow h-full grid grid-cols-12 grid-rows-4 gap-3">
+        <div class="col-span-5 row-span-2 rounded-lg shadow-sm bg-[#D4CFCCff]" id="left-element">
+            
+        </div>
+        <div class="col-span-5 row-span-3 col-start-8 row-start-1 rounded-lg shadow-sm bg-[#57402Bff]" id="right-element">3</div>
+        <div class="col-span-2 row-span-2 col-start-6 row-start-1 rounded-lg shadow-sm bg-[#222725ff] relative overflow-hidden" id="first-element">
+            <img src="assets/me2.JPEG" alt="me" class="absolute object-cover h-full w-full">
+        </div>
+        <div class="col-span-4 row-span-2 row-start-3 rounded-lg shadow-sm bg-[#57402Bff]" id="right-element">5</div>
+        <div class="col-span-3 row-span-2 col-start-5 row-start-3 rounded-lg shadow-sm bg-[#A89A91ff]" id="bottom-element">6</div>
+        <div class="col-span-5 col-start-8 row-start-4 rounded-lg shadow-sm bg-[#D4CFCCff]" id="left-element">7</div>
+    </div>
+</body>
+
+</html>
