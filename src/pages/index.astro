@@ -1,39 +1,115 @@
 ---
-import Card from "../features/bento/components/Card.astro";
+import AnimatedCard from "../features/bento/components/AnimatedCard.astro";
 import Header from "../features/bento/components/sections/Header.astro";
 import Layout from "../features/bento/layout/Layout.astro";
-import { Image } from 'astro:assets';
-
-// src/pages/index.astro
-
+import { Image } from "astro:assets";
+import me from "../assets/me2.webp";
 ---
 
 <Layout>
-  <nav class="h-20 bg-[#A89A91ff] shadow-sm rounded-lg animate-top">
-	<Header />
-  </nav>
+  <AnimatedCard
+    className="h-20 bg-[#A89A91ff] flex items-center w-full shadow-sm rounded-lg"
+    animationType="top"
+    duration={0.3}
+  >
+    <Header />
+  </AnimatedCard>
 
   <div class="flex-grow h-full grid grid-cols-12 grid-rows-4 gap-3">
-    <Card className="col-span-5 row-span-2 bg-[#D4CFCCff] animate-left"/>
-    
-    <Card className="col-span-5 row-span-3 col-start-8 row-start-1 bg-[#57402Bff] animate-right">
-      3
-    </Card>
-    
-    <Card className="col-span-2 row-span-2 col-start-6 row-start-1 bg-[#222725ff] relative overflow-hidden animate-first-element">
-      <Image src="/assets/me2.JPEG" alt="me" width="50" height="50" loading={"eager"} class="absolute object-cover h-full w-full" />
-    </Card>
-    
-    <Card className="col-span-4 row-span-2 row-start-3 bg-[#57402Bff] animate-right">
-      5
-    </Card>
-    
-    <Card className="col-span-3 row-span-2 col-start-5 row-start-3 bg-[#A89A91ff] animate-bottom">
-      6
-    </Card>
-    
-    <Card className="col-span-5 col-start-8 row-start-4 bg-[#D4CFCCff] animate-left">
-      7
-    </Card>
+    <AnimatedCard
+      className="rounded-lg col-span-5 row-span-2 bg-[#D4CFCCff]"
+      animationType="left"
+      duration={0.5}
+    >
+      <div class="p-4">
+        <h2 class="text-2xl font-bold mb-2">Título 1</h2>
+        <p class="text-gray-700">Contenido de la primera card</p>
+      </div>
+    </AnimatedCard>
+
+    <AnimatedCard
+      className="rounded-lg col-span-5 row-span-3 col-start-8 row-start-1 bg-[#57402Bff]"
+      animationType="right"
+      duration={0.5}
+    >
+      <div class="p-4 text-white h-full">
+        <h2 class="text-2xl font-bold mb-2">Título 2</h2>
+        <p class="mb-4">Contenido de la segunda card</p>
+        <button
+          class="px-4 py-2 bg-white text-black rounded hover:bg-gray-100 transition-colors"
+        >
+          Botón
+        </button>
+      </div>
+    </AnimatedCard>
+
+    <AnimatedCard
+      className="rounded-lg col-span-2 row-span-2 col-start-6 row-start-1 bg-[#222725ff] relative overflow-hidden"
+      animationType="first-element"
+    >
+      <Image
+        src={me}
+        alt="me"
+        loading="eager"
+        class="w-full h-full object-cover"
+      />
+    </AnimatedCard>
+
+    <AnimatedCard
+      className="rounded-lg col-span-4 row-span-2 row-start-3 bg-[#57402Bff]"
+      animationType="right"
+      delay={0.2}
+    >
+      <div class="p-4 text-white h-full">
+        <h2 class="text-xl font-bold mb-3">Habilidades</h2>
+        <ul class="space-y-2">
+          <li class="flex items-center">
+            <span class="w-2 h-2 bg-white rounded-full mr-3"></span>
+            React & TypeScript
+          </li>
+          <li class="flex items-center">
+            <span class="w-2 h-2 bg-white rounded-full mr-3"></span>
+            Node.js & Express
+          </li>
+          <li class="flex items-center">
+            <span class="w-2 h-2 bg-white rounded-full mr-3"></span>
+            UI/UX Design
+          </li>
+        </ul>
+      </div>
+    </AnimatedCard>
+
+    <AnimatedCard
+      className="rounded-lg col-span-3 row-span-2 col-start-5 row-start-3 bg-[#A89A91ff]"
+      animationType="bottom"
+    >
+      <div class="p-4 h-full flex flex-col">
+        <h2 class="text-xl font-bold mb-3">Proyectos</h2>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="px-3 py-1 bg-gray-200 rounded-full text-sm">Web App</span
+          >
+          <span class="px-3 py-1 bg-gray-200 rounded-full text-sm">Mobile</span>
+          <span class="px-3 py-1 bg-gray-200 rounded-full text-sm">API</span>
+        </div>
+        <p class="text-sm text-gray-600 mt-auto">+15 proyectos completados</p>
+      </div>
+    </AnimatedCard>
+
+    <AnimatedCard
+      className="rounded-lg col-span-5 col-start-8 row-start-4 bg-[#D4CFCCff]"
+      animationType="left"
+      delay={0.1}
+    >
+      <div class="p-4 h-full flex flex-col justify-center">
+        <h2 class="text-xl font-bold mb-2">Contacto</h2>
+        <p class="text-sm text-gray-600 mb-4">¿Tienes un proyecto en mente?</p>
+        <button
+          class="self-start px-6 py-2 bg-[#57402Bff] text-white rounded-lg hover:bg-[#3d2b1e] transition-colors"
+        >
+          Hablemos
+        </button>
+      </div>
+    </AnimatedCard>
   </div>
 </Layout>
+

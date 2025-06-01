@@ -1,0 +1,285 @@
+---
+// AnimatedCard.astro
+export interface Props {
+  className?: string;
+  animationType: "top" | "left" | "right" | "bottom" | "first-element";
+  delay?: number;
+  duration?: number;
+  contentDelay?: number;
+  id?: string;
+}
+
+const {
+  className = "",
+  animationType,
+  delay = 0,
+  duration = 0.5,
+  contentDelay = 0,
+  id = `card-${Math.random().toString(36).substr(2, 9)}`,
+} = Astro.props;
+
+// Clases base para cada tipo de animación
+const animationClass = `animate-${animationType}`;
+const cardId = `card-${id}`;
+---
+
+<div
+  class={`${className} ${animationClass}`}
+  id={cardId}
+  data-animation-type={animationType}
+  data-delay={delay}
+  data-duration={duration}
+  data-content-delay={contentDelay}
+>
+  <div class="card-content">
+    <slot />
+  </div>
+</div>
+
+<script>
+  // @ts-nocheck
+  import { animate } from "motion";
+
+  class AnimationController {
+    constructor() {
+      this.imagesLoaded = false;
+      this.cards = [];
+      this.init();
+    }
+
+    init() {
+      this.waitForImages().then(() => {
+        this.imagesLoaded = true;
+        this.initializeCards();
+      });
+    }
+
+    async waitForImages() {
+      const images = document.querySelectorAll('img');
+      
+      if (images.length === 0) {
+        return Promise.resolve();
+      }
+
+      const imagePromises = Array.from(images).map(img => {
+        return new Promise((resolve) => {
+          if (img.complete) {
+            resolve();
+          } else {
+            img.addEventListener('load', resolve);
+            img.addEventListener('error', resolve); // También resolvemos en caso de error
+          }
+        });
+      });
+
+      return Promise.all(imagePromises);
+    }
+
+    initializeCards() {
+      const animatedCards = document.querySelectorAll("[data-animation-type]");
+      animatedCards.forEach((card) => {
+        const animatedCard = new AnimatedCard(card);
+        this.cards.push(animatedCard);
+      });
+    }
+  }
+
+  class AnimatedCard {
+    constructor(element) {
+      this.element = element;
+      this.animationType = element.dataset.animationType;
+      this.delay = parseFloat(element.dataset.delay) || 0;
+      this.duration = parseFloat(element.dataset.duration) || 0.5;
+      this.contentDelay = parseFloat(element.dataset.contentDelay) || 0.1;
+      this.easing = [0.25, 0.46, 0.45, 0.94];
+
+      this.init();
+    }
+
+    init() {
+      this.setupInitialState();
+      this.startAnimation();
+    }
+
+    setupInitialState() {
+      const { element, animationType } = this;
+
+      // Ocultar contenido inicialmente SOLO si NO es first-element
+      const content = element.querySelector(".card-content");
+      if (content && animationType !== "first-element") {
+        content.style.opacity = "0";
+        content.style.transform = "translateY(20px)";
+      }
+
+      // Configurar estado inicial según el tipo de animación
+      switch (animationType) {
+        case "top":
+          element.style.transformOrigin = "0 100%";
+          element.style.opacity = "0";
+          element.style.transform = "scaleY(0)";
+          break;
+
+        case "left":
+          element.style.transformOrigin = "0 0";
+          element.style.opacity = "0";
+          element.style.transform = "scaleX(0)";
+          break;
+
+        case "right":
+          element.style.transformOrigin = "100% 100%";
+          element.style.opacity = "0";
+          element.style.transform = "scaleX(0)";
+          break;
+
+        case "bottom":
+          element.style.transformOrigin = "100% 0";
+          element.style.opacity = "0";
+          element.style.transform = "scaleY(0)";
+          break;
+
+        case "first-element":
+          element.style.opacity = "1";
+          element.style.visibility = "visible";
+          element.style.transform =
+            "translateX(-3rem) translateY(3rem) scale(0.3)";
+          element.style.transition = "none";
+          break;
+      }
+    }
+
+    startAnimation() {
+      const { element, animationType, delay, duration, easing } = this;
+
+      switch (animationType) {
+        case "top":
+          this.animateScale("scaleY", delay + 1.3);
+          break;
+
+        case "left":
+          this.animateScale("scaleX", delay + 1);
+          break;
+
+        case "right":
+          this.animateScale("scaleX", delay + 1);
+          break;
+
+        case "bottom":
+          this.animateScale("scaleY", delay + 1.3);
+          break;
+
+        case "first-element":
+          this.animateFirstElement();
+          break;
+      }
+    }
+
+    animateScale(property, animationDelay) {
+      const { element, duration, easing } = this;
+
+      const animationProps = {
+        [property]: [0, 1],
+        opacity: [0, 1],
+      };
+
+      animate(element, animationProps, {
+        duration,
+        delay: animationDelay,
+        easing,
+        fill: "both",
+      }).finished.then(() => {
+        this.animateContent();
+      });
+    }
+
+    animateFirstElement() {
+      const { element } = this;
+
+      // Forzar reflow
+      element.offsetHeight;
+
+      // Primera animación: translate
+      animate(
+        element,
+        {
+          transform: [
+            "translateX(-3rem) translateY(3rem) scale(0.3)",
+            "translateX(0rem) translateY(0rem) scale(0.3)",
+          ],
+        },
+        {
+          duration: 0.5,
+          delay: 0.4    ,
+          easing: [0.25, 0.46, 0.45, 0.94],
+          fill: "forwards",
+        }
+      )
+        .finished.then(() => {
+          // Segunda animación: scale
+          return animate(
+            element,
+            {
+              transform: [
+                "translateX(0rem) translateY(0rem) scale(0.3)",
+                "translateX(0rem) translateY(0rem) scale(1)",
+              ],
+            },
+            {
+              duration: 0.8,
+              easing: [0.68, -0.55, 0.265, 1.55],
+              fill: "forwards",
+            }
+          ).finished;
+        });
+    }
+
+    animateContent() {
+      const { element, contentDelay } = this;
+      const content = element.querySelector(".card-content");
+
+      if (content) {
+        animate(
+          content,
+          {
+            opacity: [0, 1],
+            transform: ["translateY(20px)", "translateY(0px)"],
+          },
+          {
+            duration: 0.4,
+            delay: contentDelay,
+            easing: "ease-out",
+            fill: "forwards",
+          }
+        );
+      }
+    }
+  }
+
+  // Inicializar el controlador de animaciones
+  const initAnimations = () => {
+    new AnimationController();
+  };
+
+  // Ejecutar cuando el DOM esté listo
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAnimations);
+  } else {
+    initAnimations();
+  }
+</script>
+
+<style>
+  /* Estilos base para las animaciones */
+  .animate-top,
+  .animate-left,
+  .animate-right,
+  .animate-bottom,
+  .animate-first-element {
+    /* Preparar para animaciones */
+    will-change: transform, opacity;
+  }
+
+  .card-content {
+    /* Preparar contenido para animación */
+    will-change: transform, opacity;
+  }
+</style>
