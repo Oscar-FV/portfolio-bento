@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 @keyframes translateAnimation {
   0% {
     transform: translate(-3rem, 3rem) scale(0.5);
@@ -20,7 +22,7 @@
   0% {
     transform: scaleX(0);
     transform-origin: 0 0;
-    opacity: 1;
+    opacity: 0;
   }
   100% {
     transform: scaleX(1);
@@ -33,7 +35,7 @@
   0% {
     transform: scaleX(0);
     transform-origin: 100% 100%;
-    opacity: 1;
+    opacity: 0;
   }
   100% {
     transform: scaleX(1);
@@ -46,7 +48,7 @@
   0% {
     transform: scaleY(0);
     transform-origin: 100% 0;
-    opacity: 1;
+    opacity: 0;
   }
   100% {
     transform: scaleY(1);
@@ -59,7 +61,7 @@
   0% {
     transform: scaleY(0);
     transform-origin: 0 100%;
-    opacity: 1;
+    opacity: 0;
   }
   100% {
     transform: scaleY(1);
@@ -68,26 +70,24 @@
   }
 }
 
-#first-element {
-  transform: scale(.5);
+.animate-first-element {
+  transform: scale(0.5);
   animation: translateAnimation 0.5s ease-in-out 0s forwards,
-             scaleAnimation 0.5s ease-in-out 0.5s forwards;
+    scaleAnimation 0.5s ease-in-out 0.5s forwards;
 }
 
-#top-element {
-  animation: scale-in-ver-bottom 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.3s
-    both;
+.animate-top {
+  animation: scale-in-ver-bottom 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.3s both;
 }
 
-#right-element {
-  animation: scale-in-hor-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s
-    both;
+.animate-right {
+  animation: scale-in-hor-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s both;
 }
 
-#left-element {
+.animate-left {
   animation: scale-in-hor-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s both;
 }
 
-#bottom-element {
+.animate-bottom {
   animation: scale-in-ver-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.3s both;
 }

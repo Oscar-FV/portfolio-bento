@@ -2,6 +2,7 @@
 import Card from "../features/bento/components/Card.astro";
 import Header from "../features/bento/components/sections/Header.astro";
 import Layout from "../features/bento/layout/Layout.astro";
+import { Image } from 'astro:assets';
 
 // src/pages/index.astro
 
@@ -20,7 +21,7 @@ import Layout from "../features/bento/layout/Layout.astro";
     </Card>
     
     <Card className="col-span-2 row-span-2 col-start-6 row-start-1 bg-[#222725ff] relative overflow-hidden animate-first-element">
-      <img src="/assets/me2.JPEG" alt="me" class="absolute object-cover h-full w-full" />
+      <Image src="/assets/me2.JPEG" alt="me" width="50" height="50" loading={"eager"} class="absolute object-cover h-full w-full" />
     </Card>
     
     <Card className="col-span-4 row-span-2 row-start-3 bg-[#57402Bff] animate-right">
