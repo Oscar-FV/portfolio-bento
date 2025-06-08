@@ -4,6 +4,10 @@ import Header from "../features/bento/components/sections/Header.astro";
 import Layout from "../features/bento/layout/Layout.astro";
 import { Image } from "astro:assets";
 import me from "../assets/me2.webp";
+import AboutMe from "../features/bento/components/sections/AboutMe.astro";
+import Skills from "../features/bento/components/sections/Skills.astro";
+import Projects from "../features/bento/components/sections/Projects.astro";
+import FeaturedProject from "../features/bento/components/sections/FeaturedProject.astro";
 ---
 
 <Layout>
@@ -21,26 +25,15 @@ import me from "../assets/me2.webp";
       animationType="left"
       duration={0.5}
     >
-      <div class="p-4">
-        <h2 class="text-2xl font-bold mb-2">Título 1</h2>
-        <p class="text-gray-700">Contenido de la primera card</p>
-      </div>
+      <AboutMe/>
     </AnimatedCard>
 
     <AnimatedCard
       className="rounded-lg col-span-5 row-span-3 col-start-8 row-start-1 bg-[#57402Bff]"
       animationType="right"
       duration={0.5}
-    >
-      <div class="p-4 text-white h-full">
-        <h2 class="text-2xl font-bold mb-2">Título 2</h2>
-        <p class="mb-4">Contenido de la segunda card</p>
-        <button
-          class="px-4 py-2 bg-white text-black rounded hover:bg-gray-100 transition-colors"
-        >
-          Botón
-        </button>
-      </div>
+    > 
+      <FeaturedProject/>
     </AnimatedCard>
 
     <AnimatedCard
@@ -60,39 +53,14 @@ import me from "../assets/me2.webp";
       animationType="right"
       delay={0.2}
     >
-      <div class="p-4 text-white h-full">
-        <h2 class="text-xl font-bold mb-3">Habilidades</h2>
-        <ul class="space-y-2">
-          <li class="flex items-center">
-            <span class="w-2 h-2 bg-white rounded-full mr-3"></span>
-            React & TypeScript
-          </li>
-          <li class="flex items-center">
-            <span class="w-2 h-2 bg-white rounded-full mr-3"></span>
-            Node.js & Express
-          </li>
-          <li class="flex items-center">
-            <span class="w-2 h-2 bg-white rounded-full mr-3"></span>
-            UI/UX Design
-          </li>
-        </ul>
-      </div>
+      <Skills />
     </AnimatedCard>
 
     <AnimatedCard
       className="rounded-lg col-span-3 row-span-2 col-start-5 row-start-3 bg-[#A89A91ff]"
       animationType="bottom"
     >
-      <div class="p-4 h-full flex flex-col">
-        <h2 class="text-xl font-bold mb-3">Proyectos</h2>
-        <div class="flex flex-wrap gap-2 mb-4">
-          <span class="px-3 py-1 bg-gray-200 rounded-full text-sm">Web App</span
-          >
-          <span class="px-3 py-1 bg-gray-200 rounded-full text-sm">Mobile</span>
-          <span class="px-3 py-1 bg-gray-200 rounded-full text-sm">API</span>
-        </div>
-        <p class="text-sm text-gray-600 mt-auto">+15 proyectos completados</p>
-      </div>
+      <Projects/>
     </AnimatedCard>
 
     <AnimatedCard

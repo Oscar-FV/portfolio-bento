@@ -1,0 +1,22 @@
+---
+import { SKILLS } from "../../../../constants/Skills.constants";
+---
+
+<div class="p-6 text-white h-full m-auto">
+  <div class="grid grid-cols-2 space-y-4">
+    {
+      SKILLS.map((skill, index) => (
+        <div
+          class="flex items-center gap-4 p-2 rounded-lg"
+        >
+          <skill.icon
+            class={`w-7 h-7 ${skill.color}`}
+          />
+          <span class="text-amber-100 font-medium flex-1 text-xl">
+            {skill.name}
+          </span>
+        </div>
+      ))
+    }
+  </div>
+</div>

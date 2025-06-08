@@ -23,18 +23,18 @@ const animationClass = `animate-${animationType}`;
 const cardId = `card-${id}`;
 ---
 
-<div
-  class={`${className} ${animationClass}`}
+<article
+  class={`${className} ${animationClass} h-full`}
   id={cardId}
   data-animation-type={animationType}
   data-delay={delay}
   data-duration={duration}
   data-content-delay={contentDelay}
 >
-  <div class="card-content">
+  <div class="card-content h-full">
     <slot />
   </div>
-</div>
+</article>
 
 <script>
   // @ts-nocheck
